@@ -1,11 +1,20 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
+app.use(express.json());
+app.use(cors());
 
 app.use(express.static("public"));
 
 const { User, Chirp } = require('../persist/posts')
 
-app.use(express.json());
+const setUpAuth = require("./auth");
+const setUpSession = require("./session");
+
+setUpSession(app);
+setUpAuth(app);
+
 const post = require('../persist/posts');
 
 app.get('/chirps/:id', async (req, res) => {
