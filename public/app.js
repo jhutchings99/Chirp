@@ -39,7 +39,7 @@ var app = new Vue({
       console.log(data);
     },
 
-    getPost: async function (postId) {
+    getChirp: async function (postId) {
       let response = await fetch(`${URL}/chirp/${postId}`, {
         method: 'GET',
         credentials: 'include',
