@@ -1,11 +1,11 @@
 const express = require('express');
-export const app = express();
+const app = express();
 
 const bycript = require('bycript');
 
 app.use(express.json());
 
-const mongoDB =  require('./persists/mongo');
+const mongoDB = require('./persists/mongo');
 
 const posts = require('./persist/posts');
 
@@ -17,88 +17,84 @@ flags.parse();
 
 const port = flags.get('port') || process.env.PORT || 3000;
 
-mongoDB.setUpConnectionHandlers(() =>{
-    app.listen(port,  () =>{
+mongoDB.setUpConnectionHandlers(() => {
+    app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
     });
 });
 
 mongoDB.connect();
 
-app.get('/Chirp/:id', (req,res) =>{
+app.get('/Chirp/:id', async (req, res) => {
     const id = req.params.id;
-    posts.findById(id)
-    .then((chirp) => {
-        if( chirp == null){
-            res.status(404).json({message: "No Chirp found"});
+    try {
+        chirp = await post.findById(id);
+        if (chirp == null) {
+            res.status(404).json({ message: "No Chirp found" });
             return;
         }
-        res.json(chrip);
-    })
-    .catch(err) =>{
-        res.status(500).json({message: "Check your server code, somthing is wrong"});
-        return;
-    });
+    } catch (err) {
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
+    };
+    res.status(200).json(chirp);
 });
 
-app.get('/Chirp', (req,res) =>{
-    posts.find()
-    .then((chirp) => {
-        if( chirp == null){
-            res.status(404).json({message: "No Chirp found"});
+app.get('/Chirp', async (req, res) => {
+    try {
+        chirp = await post.find({});
+        if (chirp == null) {
+            res.status(404).json({ message: "No Chirp found" });
             return;
         }
-        res.json(chrip);
-    })
-    .catch(err) =>{
-        res.status(500).json({message: "Check your server code, somthing is wrong"});
-        return;
-    });
+    } catch (err) {
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
+    };
+    res.status(200).json(chirp);
 });
 
-app.post('/Chirp', (req,res) =>{
+app.post('/Chirp', (req, res) => {
     create.(req.body)
-    .then((chirp) => {
-        if( chirp == null){
-            res.status(404).json({message: "No Chirp found"});
+        then {
+        if (chirp == null) {
+            res.status(404).json({ message: "No Chirp found" });
             return;
         }
         res.json(chrip);
-    })
-    .catch(err) =>{
-        res.status(500).json({message: "Check your server code, somthing is wrong"});
+    }
+        catch (err) {
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
         return;
     });
 });
 
-app.put('/Chirp/:id', (req,res) =>{
+app.put('/Chirp/:id', (req, res) => {
     const id = req.params.id;
-    posts.findByIdAndUpdate(id, req.body , {returnDocument: 'after'})
-    .then((chirp) => {
-        if( chirp == null){
-            res.status(404).json({message: "No Chirp found"});
-            return;
-        }
-        res.json(chrip);
-    })
-    .catch(err) =>{
-        res.status(500).json({message: "Check your server code, somthing is wrong"});
+    posts.findByIdAndUpdate(id, req.body, { returnDocument: 'after' })
+        .then((chirp) => {
+            if (chirp == null) {
+                res.status(404).json({ message: "No Chirp found" });
+                return;
+            }
+            res.json(chrip);
+        })
+        .catch(err) => {
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
         return;
     });
 });
 
-app.delete('/Chirp/:id', (req,res) =>{
+app.delete('/Chirp/:id', (req, res) => {
     const id = req.params.id;
     posts.findByIdAndDelete(id)
-    .then((chirp) => {
-        if( chirp == null){
-            res.status(404).json({message: "No Chirp found"});
-            return;
-        }
-        res.json(chrip);
-    })
-    .catch(err) =>{
-        res.status(500).json({message: "Check your server code, somthing is wrong"});
+        .then((chirp) => {
+            if (chirp == null) {
+                res.status(404).json({ message: "No Chirp found" });
+                return;
+            }
+            res.json(chrip);
+        })
+        .catch(err) => {
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
         return;
     });
 });
