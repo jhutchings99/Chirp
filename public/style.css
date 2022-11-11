@@ -137,3 +137,11 @@ body {
   background: #ffe8c8;
   border-radius: 50px;
 }
+
+@media only screen and (max-width: 1920px) {
+  .nav-link {
+    font-size: 1.5rem;
+    padding: 5px;
+    margin: 70px;
+  }
+}
