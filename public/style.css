@@ -1,0 +1,21 @@
+body {
+  margin: 0px;
+  background-color: #3f4551;
+  height: 100%;
+}
+#app {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#nav {
+  align-content: space-between;
+  flex-direction: column;
+  background-color: rgb(237, 236, 236);
+  height: 100%;
+}
+#posts {
+  flex-direction: column;
+  color: white;
+}
