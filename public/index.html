@@ -16,9 +16,9 @@
         <h2>PROFILE</h2>
         <h2>LOGOUT</h2>
       </div>
-      <div id="posts">
+      <div id="posts" v-if="home">
         <h5>Just a Cool Rock Concert</h5>
-        POSTS GO HERE
+        <div id="post" v-for="post in posts"></div>
       </div>
       <div id="RHS bar">
         <h2>
@@ -26,6 +26,8 @@
           HERE AS WELL
         </h2>
       </div>
+      <div id="explore" v-if="explore"></div>
+      <div id="profile" v-if="profile">profile information</div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>
