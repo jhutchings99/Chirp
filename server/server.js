@@ -9,9 +9,13 @@ app.use(express.json());
 const post = require('../persist/posts');
 
 app.get('/chirps/:id', async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
     const id = req.params.id;
     try {
-        chirp = await post.findById(id);
+        chirp = await Chirp.findById(id);
         if (chirp == null) {
             res.status(404).json({ message: "No Chirp found" });
             return;
@@ -23,6 +27,10 @@ app.get('/chirps/:id', async (req, res) => {
 });
 
 app.get('/chirps', async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
     let chirp;
     try {
         chirp = await Chirp.find();
@@ -37,12 +45,14 @@ app.get('/chirps', async (req, res) => {
     res.status(200).json(chirp);
 });
 
-app.post('/chirps', async (req, res) => {
-    let chirp;
+app.post('/users/:_id/chirps', async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
     try {
-        chirp = await post.create({
-            // chirpSchema
-            user_id: req.user.id,
+        let chirp = await Chirp.create({
+            user_id: req.params._id,
             message: req.body.message,
             embeddedSong: req.body.embeddedSong,
             timeStamp: Date,
@@ -57,10 +67,9 @@ app.post('/chirps', async (req, res) => {
 });
 
 app.put('/chirps/:id', async (req, res) => {
-    let chirp;
     let id = req.params.id;
     try {
-        chirp = await post.findByIdAndUpdate(id, {
+        let chirp = await Chirp.findByIdAndUpdate(id, {
             // chirpSchema
             user_id: req.user.id,
             message: req.body.message,
@@ -83,10 +92,13 @@ app.put('/chirps/:id', async (req, res) => {
 });
 
 app.delete('/chirps/:id', async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
     const id = req.params.id;
-    let chirp;
     try {
-        chirp = await posts.findByIdAndDelete(id);
+        let chirp = await Chirp.findByIdAndDelete(id);
         if (chirp == null) {
             res.status(404).json({ message: "No Chirp found" });
         }
