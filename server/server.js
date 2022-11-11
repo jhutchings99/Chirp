@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+app.use(express.static("public"));
 
 const { User, Chirp } = require('../persist/posts')
 
