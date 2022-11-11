@@ -48,6 +48,21 @@ const CommentSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now },
 });
 
+UserSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) {
+        return next();
+    }
+    try {
+        const hashedPassword = await bcrypt.hash(this.password, 10);
+        this.password = hashedPassword;
+        next();
+    }
+    catch (err) {
+        next(err);
+    }
+}
+);
+
 const User = mongoose.model("User", UserSchema);
 const Chirp = mongoose.model("Chirp", ChirpSchema);
 
