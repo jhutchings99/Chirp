@@ -9,6 +9,7 @@ var app = new Vue({
     post: {},
     currentPage: 'home',
     creatingPost: false,
+    loggedIn: false,
     comments: false,
     pages: ['home', 'explore', 'playlists', 'profile'],
   },
