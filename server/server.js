@@ -154,7 +154,7 @@ app.post('/users/:_id/chirps/:chirps_id/comments', async (req, res) => {
         }, { returnDocument: 'after' });
         if (!chirp) {
             res.status(500).json({
-                message: `get request failed to get station`,
+                message: `get request failed to get chirp`,
                 error: err,
             });
             return;
@@ -179,12 +179,91 @@ app.delete('/users/:_id/chirps/:chirps_id/comments/:_id', async (req, res) => {
         }, { returnDocument: 'after' });
         if (!chirp) {
             res.status(500).json({
-                message: `get request failed to get station`,
+                message: `get request failed to get chirp`,
                 error: err,
             });
             return;
         }
     res.status(200).json(chirp);
+    } catch (err) {
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
+    }
+});
+
+app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({message: "Unauthorized"});
+        return;
+    }
+
+    try {
+        let user = await User.findById(req.params._id);
+        let chirp = await Chirp.findById(req.params.chirps_id);
+        likes = chirp.likes;
+        for (let i = 0; i < likes.length; i++) {
+            if (likes[i]._id.equals(user._id)) {
+                res.status(500).json({ message: "User already liked this chirp" });
+                return;
+            }
+        }
+
+        chirp = await Chirp.findByIdAndUpdate(req.params.chirps_id, {
+            $push: { likes: user }
+        }, { returnDocument: 'after' });
+        if (!user) {
+            res.status(500).json({
+                message: `get request failed to get a user`,
+                error: err,
+            });
+            return;
+        }
+        if (!chirp) {
+            res.status(500).json({
+                message: `get request failed to get a chirp`,
+                error: err,
+            });
+            return;
+        }
+    res.status(200).json(chirp);
+    } catch (err) {
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
+    }
+});
+
+app.delete('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({message: "Unauthorized"});
+        return;
+    }
+
+    try {
+        let user = await User.findById(req.params._id);
+        let chirp = await Chirp.findById(req.params.chirps_id);
+        likes = chirp.likes;
+        for (let i = 0; i < likes.length; i++) {
+            if (likes[i]._id.equals(user._id)) {
+                chirp = await Chirp.findByIdAndUpdate(req.params.chirps_id, {
+                    $pull: { likes: user }
+                }, { returnDocument: 'after' });
+                if (!user) {
+                    res.status(500).json({
+                        message: `get request failed to get a user`,
+                        error: err,
+                    });
+                    return;
+                }
+                if (!chirp) {
+                    res.status(500).json({
+                        message: `get request failed to get a chirp`,
+                        error: err,
+                    });
+                    return;
+                }
+                res.status(200).json(chirp);
+                return;
+            }
+        }
+        res.status(500).json({ message: "User has not liked this chirp" });
     } catch (err) {
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     }
