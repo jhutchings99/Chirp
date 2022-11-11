@@ -7,7 +7,7 @@ app.use(cors());
 
 app.use(express.static("public"));
 
-const { User, Chirp } = require('../persist/posts')
+const { User, Chirp, Comment } = require('../persist/posts')
 
 const setUpAuth = require("./auth");
 const setUpSession = require("./session");
@@ -130,6 +130,62 @@ app.post('/users', async (req, res) => {
         res.status(201).json(user);
     } catch (err) {
         console.log(err);
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
+    }
+});
+
+app.post('/users/:_id/chirps/:chirps_id/comments', async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({message: "Unauthorized"});
+        return;
+    }
+
+    let chirp;
+
+    try {
+        comment = await Comment.create({
+            user_id: req.params._id,
+            chirp_id: req.params.chirps_id,
+            message: req.body.message,
+            timeStamp: Date,
+        });
+        chirp = await Chirp.findByIdAndUpdate(req.params.chirps_id, {
+            $push: { comments: comment }
+        }, { returnDocument: 'after' });
+        if (!chirp) {
+            res.status(500).json({
+                message: `get request failed to get station`,
+                error: err,
+            });
+            return;
+        }
+    res.status(200).json(chirp);
+    } catch (err) {
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
+    }
+});
+
+app.delete('/users/:_id/chirps/:chirps_id/comments/:_id', async (req, res) => {
+    if (!req.user) {
+        res.status(401).json({message: "Unauthorized"});
+        return;
+    }
+
+    let chirp;
+
+    try {
+        chirp = await Chirp.findByIdAndUpdate(req.params.chirps_id, {
+            $pull: { comments: { _id: req.params._id } }
+        }, { returnDocument: 'after' });
+        if (!chirp) {
+            res.status(500).json({
+                message: `get request failed to get station`,
+                error: err,
+            });
+            return;
+        }
+    res.status(200).json(chirp);
+    } catch (err) {
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     }
 });

@@ -69,8 +69,10 @@ UserSchema.pre("save", async function (next) {
 
 const User = mongoose.model("User", UserSchema);
 const Chirp = mongoose.model("Chirp", ChirpSchema);
+const Comment = mongoose.model("Comment", CommentSchema);
 
 module.exports = {
     User,
     Chirp,
+    Comment,
 };
