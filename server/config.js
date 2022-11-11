@@ -1,9 +1,11 @@
-const dotenv = require("dotenv").config();
+const dotenv = require(`dotenv`);
+const flags = require(`flags`);
+flags.defineNumber(`port`, 3000);
+flags.parse();
 
-const PORT = process.env.PORT || 3000;
-const DBPASSWORD = process.env.DBPASSWORD;
+const port = flags.get(`port`) || process.env.PORT || 3000;
 
 module.exports = {
-    PORT,
-    DBPASSWORD,
+    dotenv: dotenv,
+    http_port: port
 };
