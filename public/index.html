@@ -38,7 +38,7 @@
           <i class="fa-solid fa-user icons" @click="currentPage = 'profile'"></i
           >PROFILE
         </p>
-        <p class="nav-link">
+        <p class="nav-link" @click="endSession()">
           <i class="fa-solid fa-right-from-bracket icons"></i>LOGOUT
         </p>
       </div>
@@ -65,7 +65,7 @@
             ></iframe>
           </div>
           <div class="bottom-row-container">
-            <p class="bottom-row-text spacer">
+            <p class="bottom-row-text spacer" @click="comments = true">
               <i class="fa-regular fa-comment icons"></i>12 Comments
             </p>
             <p class="bottom-row-text">
@@ -134,6 +134,9 @@
           </div>
         </div>
         <!-- END OF TEMP -->
+        <div id="profile" v-show="currentPage == 'profile'">
+          <div class="post" v-for="post in postList"></div>
+        </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>

@@ -9,12 +9,14 @@ var app = new Vue({
     post: {},
     currentPage: 'home',
     creatingPost: false,
+    comments: false,
     pages: ['home', 'explore', 'playlists', 'profile'],
   },
   methods: {
     pageCookie: function (currentPage) {
       document.cookie = 'currentPage =' + currentPage;
     },
+    endSession: function () {},
     getPosts: async function () {
       let response = await fetch(`${URL}/chirp`, {
         method: 'GET',
