@@ -4,11 +4,17 @@ var app = new Vue({
   el: '#app',
   data: {
     postList: [],
+    trendingPosts: [],
     postComments: [],
     post: {},
-    home: true,
+    currentPage: 'home',
+    creatingPost: false,
+    pages: ['home', 'explore', 'playlists', 'profile'],
   },
   methods: {
+    pageCookie: function (currentPage) {
+      document.cookie = 'currentPage =' + currentPage;
+    },
     getPosts: async function () {
       let response = await fetch(`${URL}/chirp`, {
         method: 'GET',
