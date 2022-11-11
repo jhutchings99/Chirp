@@ -55,3 +55,9 @@ Change users Password          | PUT    | /users/*\<id\>*
 ## Encryption type
  - bcrypt
 
+## Color Palette
+- Dark Blueish #3F4551
+- Cyanish #629585
+- Beige #BCAC91
+- Sandy Orangeish #E3A468
+- Light redish #EA6453
