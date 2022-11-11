@@ -5,20 +5,28 @@ var app = new Vue({
   data: {
     postList: [],
     postComments: [],
-    post: {},
+    chirps: [],
     home: true,
   },
   methods: {
-    getPosts: async function () {
-      let response = await fetch(`${URL}/chirp`, {
-        method: 'GET',
-        credentials: 'include',
-      });
-      let data = await response.json();
-      this.postList = data;
-      console.log(response.status);
-      console.log(data);
+    getChirps: async function () {
+      console.log("got here");
+      let response = await fetch(`${URL}/chirps`);
+      console.log("did i get here");
+      console.log(response)
+      // Parse response body
+      let body = await response.json();
+      console.log(body)
+
+      // Check if stations were retrieved
+      if (response.status == 200) {
+          console.log("Successful station retrieval");
+          this.allStations = body;
+      } else {
+          console.log("error GETTING /stations", response.status, response);
+      }
     },
+    
 
     getComments: async function (commentId) {
       let response = await fetch(`${URL}/chirp/comment/${commentId}`, {

@@ -36,10 +36,10 @@ app.get('/chirps/:id', async (req, res) => {
 });
 
 app.get('/chirps', async (req, res) => {
-    if (!req.user) {
-        res.status(401).json({ message: "Unauthorized" });
-        return;
-    }
+    // if (!req.user) {
+    //     res.status(401).json({ message: "Unauthorized" });
+    //     return;
+    // }
     let chirp;
     try {
         chirp = await Chirp.find();
