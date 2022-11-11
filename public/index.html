@@ -5,44 +5,135 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>CHIRP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/44a9d6cfa6.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="icon" type="image/x-icon" href="images/logo.png" />
+    <title>Chirp</title>
   </head>
   <body>
     <div id="app">
       <div id="nav">
-        <h1 @click="currentPage = 'home'; pageCookie('home')">CHIRP</h1>
-        <h2 @click="currentPage = 'explore'; pageCookie('explore')">EXPLORE</h2>
-        <h2 @click="currentPage = 'playlists'">PLAYLISTS</h2>
-        <h2 @click="currentPage = 'profile'">PROFILE</h2>
-        <h2 @click="endSession()">LOGOUT</h2>
-      </div>
-      <div id="posts" class="pages" v-show="currentPage == 'home'">
-        <h5>Just a Cool Rock Concert</h5>
-        posts
-        <div id="friendPosts" class="post" v-for="post in postList"></div>
-      </div>
-      <div id="explore" class="pages" v-show="currentPage == 'explore'">
-        <div
-          id="trendingPosts"
-          class="post"
-          v-for="posts in trendingPosts"
-        ></div>
-        TRENDING POSTS
-      </div>
-      <div id="playlists" class="pages" v-show="currentPage == 'playlists'">
-        my playlists
-      </div>
-      <div id="profile" class="pages" v-show="currentPage == 'profile'">
-        profile information
-      </div>
-      <div id="RHS bar">
-        <h2>
-          THINGS WILL GO<br />
-          HERE AS WELL
-        </h2>
-        <div id="createPost" v-show="creatingPost">
-          <input type="text" placeholder="Write something about your song" />
+        <div id="logo-container" @click="currentPage = 'home'">
+          <img src="images/logo.png" alt="Chirp Logo" id="logo" />
+          <p id="logo-text">CHIRP</p>
         </div>
+        <p class="nav-link" @click="currentPage = 'home'">
+          <i class="fa-solid fa-house icons"></i>HOME
+        </p>
+        <p class="nav-link" @click="currentPage = 'explore'">
+          <i class="fa-solid fa-compass icons"></i>EXPLORE
+        </p>
+        <p class="nav-link" @click="currentPage = 'playlists'">
+          <i class="fa-solid fa-music icons"></i>PLAYLISTS
+        </p>
+        <p class="nav-link">
+          <i class="fa-solid fa-user icons" @click="currentPage = 'profile'"></i
+          >PROFILE
+        </p>
+        <p class="nav-link">
+          <i class="fa-solid fa-right-from-bracket icons"></i>LOGOUT
+        </p>
+      </div>
+
+      <div id="posts-container">
+        <div class="post">
+          <div class="top-row-container">
+            <p class="top-row-text spacer">Username</p>
+            <p class="top-row-text">12 hours ago</p>
+          </div>
+          <div class="main-post-content">
+            <p class="post-message">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
+              ipsum provident id laborum! Dignissimos explicabo praesentium quis
+              quasi fuga mollitia!
+            </p>
+            <iframe
+              class="embedded-song"
+              src="https://open.spotify.com/embed/track/18zQTt3ifDv6iLni2YuXMg?utm_source=generator"
+              frameborder="0"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="bottom-row-container">
+            <p class="bottom-row-text spacer">
+              <i class="fa-regular fa-comment icons"></i>12 Comments
+            </p>
+            <p class="bottom-row-text">
+              <i class="fa-regular fa-heart icons"></i>52 Likes
+            </p>
+          </div>
+        </div>
+
+        <!-- TEMP POSTS DELETE LATER -->
+        <div class="post">
+          <div class="top-row-container">
+            <p class="top-row-text spacer">Username</p>
+            <p class="top-row-text">12 hours ago</p>
+          </div>
+          <div class="main-post-content">
+            <p class="post-message">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
+              ipsum provident id laborum! Dignissimos explicabo praesentium quis
+              quasi fuga mollitia!
+            </p>
+            <iframe
+              class="embedded-song"
+              src="https://open.spotify.com/embed/track/0IkcOWI1DIFM2L6kIukxr4?utm_source=generator"
+              frameborder="0"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="bottom-row-container">
+            <p class="bottom-row-text spacer">
+              <i class="fa-regular fa-comment icons"></i>12 Comments
+            </p>
+            <p class="bottom-row-text">
+              <i class="fa-regular fa-heart icons"></i>52 Likes
+            </p>
+          </div>
+        </div>
+        <div class="post">
+          <div class="top-row-container">
+            <p class="top-row-text spacer">Username</p>
+            <p class="top-row-text">12 hours ago</p>
+          </div>
+          <div class="main-post-content">
+            <p class="post-message">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
+              ipsum provident id laborum! Dignissimos explicabo praesentium quis
+              quasi fuga mollitia!
+            </p>
+            <iframe
+              class="embedded-song"
+              src="https://open.spotify.com/embed/track/39qtjJ454r2fgyXaenq8Wv?utm_source=generator"
+              frameborder="0"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="bottom-row-container">
+            <p class="bottom-row-text spacer">
+              <i class="fa-regular fa-comment icons"></i>12 Comments
+            </p>
+            <p class="bottom-row-text">
+              <i class="fa-regular fa-heart icons"></i>52 Likes
+            </p>
+          </div>
+        </div>
+        <!-- END OF TEMP -->
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>

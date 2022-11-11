@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 
-async function connect(password) {
-    let connectionString = `mongodb+srv://chirp:${password}@chirp-cluster.wnxdvap.mongodb.net/?retryWrites=true&w=majority`
+async function connect(user, password) {
+    let connectionString = `mongodb+srv://${user}:${password}@chirp-cluster.wnxdvap.mongodb.net/?retryWrites=true&w=majority`
     try {
         await mongoose.connect(connectionString, {
             useNewUrlParser: true,
@@ -21,6 +21,6 @@ function onConnect(callback) {
 }
 
 module.exports = {
-    connect,
-    onConnect
+    connect: connect,
+    onConnect: onConnect
 }

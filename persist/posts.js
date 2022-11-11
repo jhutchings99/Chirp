@@ -1,4 +1,21 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+
+
+const CommentSchema = new mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    chirp_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Chirp",
+        required: true,
+    },
+    message: { type: String, required: true },
+    timestamp: { type: Date, default: Date.now },
+});
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -33,20 +50,7 @@ const ChirpSchema = new mongoose.Schema({
     comments: { type: [CommentSchema], required: false, default: [] },
 });
 
-const CommentSchema = new mongoose.Schema({
-    user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
-    chirp_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Chirp",
-        required: true,
-    },
-    message: { type: String, required: true },
-    timestamp: { type: Date, default: Date.now },
-});
+
 
 UserSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
