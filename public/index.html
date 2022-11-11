@@ -14,7 +14,7 @@
   </head>
   <body>
     <div id="app">
-      <div id="nav">
+      <div id="nav" v-if="loggedIn">
         <div id="logo-container" @click="currentPage = 'home'">
           <img src="images/logo.png" alt="Chirp Logo" id="logo" />
           <p id="logo-text">CHIRP</p>
@@ -37,7 +37,7 @@
         </p>
       </div>
 
-      <div id="posts-container">
+      <div id="posts-container" v-if="loggedIn">
         <div class="post">
           <div class="top-row-container">
             <p class="top-row-text spacer">Username</p>
@@ -85,7 +85,15 @@
       </div>
       <div id="explore" v-if="explore"></div>
       <div id="profile" v-if="profile">profile information</div>
-      <div id="login" v-if="!loggedIn">
+      <div id="login" v-if="currentPage == 'login'">
+        <div id="loginField">
+          <h1>Login</h1>
+          
+          <input type="text" placeholder=" Email">
+          <input type="password" placeholder="  Password">
+          <button>Login</button>
+          <button>Forgot Password?</button>
+        </div>
         
       </div>
     </div>

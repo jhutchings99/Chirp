@@ -7,7 +7,7 @@ var app = new Vue({
     trendingPosts: [],
     postComments: [],
     post: {},
-    currentPage: 'home',
+    currentPage: 'login',
     creatingPost: false,
     loggedIn: false,
     comments: false,
