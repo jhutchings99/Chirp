@@ -58,26 +58,25 @@ var app = new Vue({
             } else {
                 console.log("Error creating post:", response.status);
             }
-        }
-    },
+        },
 
-    createComment: async function (comment) {
-        let response = await fetch(`${URL}/comments`, {
-            method: 'POST',
-            body: JSON.stringify(comment),
-            headers: {
-                'content-type': 'application/json'
-            },
-            credentials: 'include'
-        });
-        let data = await response.json();
-        console.log(response.status);
-        console.log(data);
-        if (response.status == 201) {
-            this.getComments();
-        } else {
-            console.log("Error creating post:", response.status);
+        createComment: async function (comment) {
+            let response = await fetch(`${URL}/comments`, {
+                method: 'POST',
+                body: JSON.stringify(comment),
+                headers: {
+                    'content-type': 'application/json'
+                },
+                credentials: 'include'
+            });
+            let data = await response.json();
+            console.log(response.status);
+            console.log(data);
+            if (response.status == 201) {
+                this.getComments();
+            } else {
+                console.log("Error creating post:", response.status);
+            }
         }
-    },
-}
+    }
 })
