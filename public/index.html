@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/44a9d6cfa6.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/x-icon" href="images/logo.png">
-    <title>CHIRP</title>
+    <title>Chirp</title>
   </head>
   <body>
     <div id="app">
@@ -25,7 +25,6 @@
         <p class="nav-link"><i class="fa-solid fa-user icons"></i>PROFILE</p>
         <p class="nav-link"><i class="fa-solid fa-right-from-bracket icons"></i>LOGOUT</p>
       </div>
-
 
       <div id="posts-container">
         <div class="post">
@@ -73,6 +72,8 @@
         <!-- END OF TEMP -->
 
       </div>
+      <div id="explore" v-if="explore"></div>
+      <div id="profile" v-if="profile">profile information</div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>
