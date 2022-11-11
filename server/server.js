@@ -1,17 +1,13 @@
 const express = require('express');
 const app = express();
 
-// const bycript = require('bycript');
+
+const { User, Chirp } = require('../persist/posts')
 
 app.use(express.json());
+const post = require('../persist/posts');
 
-// const mongoDB = require('./persist/mongo');
-
-const posts = require('../persist/posts');
-
-// const dontenv = require('dotenv');
-
-app.get('/Chirp/:id', async (req, res) => {
+app.get('/chirps/:id', async (req, res) => {
     const id = req.params.id;
     try {
         chirp = await post.findById(id);
@@ -25,20 +21,22 @@ app.get('/Chirp/:id', async (req, res) => {
     res.status(200).json(chirp);
 });
 
-app.get('/Chirp', async (req, res) => {
+app.get('/chirps', async (req, res) => {
+    let chirp;
     try {
-        chirp = await post.find({});
+        chirp = await Chirp.find();
         if (chirp == null) {
             res.status(404).json({ message: "No Chirp found" });
             return;
         }
     } catch (err) {
+        console.log(err);
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     };
     res.status(200).json(chirp);
 });
 
-app.post('/Chirp', async (req, res) => {
+app.post('/chirps', async (req, res) => {
     let chirp;
     try {
         chirp = await post.create({
@@ -57,7 +55,7 @@ app.post('/Chirp', async (req, res) => {
     };
 });
 
-app.put('/Chirp/:id', async (req, res) => {
+app.put('/chirps/:id', async (req, res) => {
     let chirp;
     let id = req.params.id;
     try {
@@ -83,7 +81,7 @@ app.put('/Chirp/:id', async (req, res) => {
     };
 });
 
-app.delete('/Chirp/:id', async (req, res) => {
+app.delete('/chirps/:id', async (req, res) => {
     const id = req.params.id;
     let chirp;
     try {
@@ -96,6 +94,22 @@ app.delete('/Chirp/:id', async (req, res) => {
         console.log(err);
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     };
+});
+
+app.post('/users', async (req, res) => {
+    try {
+        let user = await User.create({
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName
+        });
+        res.status(201).json(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
+    }
 });
 
 module.exports = {
