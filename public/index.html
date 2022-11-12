@@ -15,6 +15,26 @@
   <body>
     <div id="app">
       <div id="nav" v-if= page != 'login' page != 'register'>
+        <div id="register">
+            <div id="registerwrapper" style="display: none;">
+                <h1>Create an Account</h1>
+                <span>       First Name: <input type="text" id="reg-firstname"></span>
+                <br>
+                <span>        Last Name: <input type="text" id="reg-lastname"></span>
+                <br>
+                <span>            Email: <input type="text" id="reg-email"></span>
+                <br>
+                <span>         Username: <input type="text" id="reg-username"></span>
+                <br>
+                <span>         Password: <input type="password" id="reg-password"></span>
+                <br>
+                <span>Re-Enter Password: <input type="password" id="reg-password"></span>
+                <br>
+                <span class="button">Submit</span>
+                <span class="button">Login </span>
+            </div>
+        </div>
+      <div id="nav">
         <div id="logo-container">
           <img src="images/logo.png" alt="Chirp Logo" id="logo">
           <p id="logo-text">CHIRP</p>

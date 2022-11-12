@@ -13,8 +13,6 @@ body {
   display: flex;
 }
 
-
-
 #nav {
   background-color: white;
   height: 100vh;
@@ -145,3 +143,4 @@ body {
     margin: 70px;
   }
 }
+>>>>>>> origin/master
