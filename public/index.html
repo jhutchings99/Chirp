@@ -72,27 +72,44 @@
           </div>
         </div>
       </div>
-      <div id="explore" v-if="explore"></div>
-      <div id="profile" v-if="profile">profile information</div>
       <div id="login" v-if="page == 'login'">
-        <div id="loginField">
+        <div class="loginField">
           <div id="chirpLogin">
             <h1>CHIRP</h1>
-            <img src="images/logo.png" alt="Chirp Logo" id="loginLogo" />
+            <img src="images/logo.png" alt="Chirp Logo" class="loginLogo" />
           </div>
           <h1>Login</h1>
-          <div id="loginInputs">
+          <div class="loginInputs">
             <input type="text" placeholder=" Email"  v-model="loginUsername" />
             <input type="password" placeholder="Password" v-model="loginPassword" />
           </div>
-          <div id="loginButtons">
+          <div class="loginButtons">
             <button @click="loginUser()">Login</button>
-            <button>Forgot Password?</button>
-            <button>Register</button>
+            <button @click="page = 'register'">Register</button>
           </div>
         </div>
       </div>
-      <p class="create-post" @click="posting='true'">+</p>
+      <div id="register" v-if="page == 'register'">
+        <div class="loginField">
+          <div id="chirpRegister">
+            <h1>CHIRP</h1>
+            <img src="images/logo.png" alt="Chirp Logo" class="loginLogo" />
+          </div>
+          <h1>Register</h1>
+          <div class="loginInputs">
+            <input type="text" placeholder=" First Name" />
+            <input type="text" placeholder=" Last Name" />
+            <input type="text" placeholder=" Username" />
+            <input type="text" placeholder=" Password" />
+            <input type="text" placeholder=" Re-Enter Password" />
+          </div>
+          <div class="loginButtons">
+            <button >Submit</button>
+            <button @click="page = 'login'">Login</button>
+          </div>
+        </div>
+      </div>
+      <p class="create-post" @click="posting='true'" v-if="page === 'main'">+</p>
       <div id="create-post-container" v-show="posting == 'true'">
         <input type="text" placeholder="Message" class="post-input" v-model="postMessage">
         <input type="text" placeholder="Spotify Embed Link" class="post-input" v-model="embeddedSong">
