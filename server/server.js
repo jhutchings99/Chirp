@@ -60,8 +60,11 @@ app.post('/users/:_id/chirps', async (req, res) => {
         return;
     }
     try {
+        user = await User.findById(req.params._id);
+        username = user.username;
         let chirp = await Chirp.create({
             user_id: req.params._id,
+            poster: username,
             message: req.body.message,
             embeddedSong: req.body.embeddedSong,
             timeStamp: Date,
@@ -132,6 +135,25 @@ app.post('/users', async (req, res) => {
         console.log(err);
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     }
+});
+
+app.get('/users/:_id', async (req, res) => {
+    // if (!req.user) {
+    //     res.status(401).json({ message: "Unauthorized" });
+    //     return;
+    // }
+    const id = req.params._id;
+    try {
+        let user = await User.findById(id);
+        if (user == null) {
+            res.status(404).json({ message: "No User found" });
+            return;
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
+    };
 });
 
 app.post('/users/:_id/chirps/:chirps_id/comments', async (req, res) => {

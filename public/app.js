@@ -5,28 +5,38 @@ var app = new Vue({
   data: {
     postList: [],
     postComments: [],
-    chirps: [],
+    allChirps: [],
     home: true,
+    temp: "",
   },
   methods: {
     getChirps: async function () {
-      console.log("got here");
       let response = await fetch(`${URL}/chirps`);
-      console.log("did i get here");
-      console.log(response)
-      // Parse response body
-      let body = await response.json();
-      console.log(body)
 
-      // Check if stations were retrieved
+      let body = await response.json();
+
       if (response.status == 200) {
-          console.log("Successful station retrieval");
-          this.allStations = body;
+          console.log("Successful chrips retrieval");
+          this.allChirps = body;
       } else {
-          console.log("error GETTING /stations", response.status, response);
+          console.log("error GETTING /chirps", response.status, response);
       }
     },
     
+    getUserById: async function (id) {
+      let response = await fetch(`${URL}/users/${id}`);
+
+      let body = await response.json();
+
+      if (response.status == 200) {
+          console.log("Successful user retrieval");
+          console.log(body.username)
+          temp = body.username;
+      } else {
+          console.log("error GETTING /users/id", response.status, response);
+      }
+    },
+
 
     getComments: async function (commentId) {
       let response = await fetch(`${URL}/chirp/comment/${commentId}`, {
@@ -88,4 +98,7 @@ var app = new Vue({
       }
     },
   },
+  created: function () {
+    this.getChirps();
+  }
 });

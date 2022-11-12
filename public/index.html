@@ -27,21 +27,20 @@
       </div>
 
       <div id="posts-container">
-        <div class="post">
+        <div v-for="chirp in allChirps" class="post">
           <div class="top-row-container">
-            <p class="top-row-text spacer">Username</p>
-            <p class="top-row-text">12 hours ago</p>
+            <p class="top-row-text spacer">{{ chirp.poster }}</p>
+            <p class="top-row-text">{{ chirp.timestamp.split('T')[0] }}</p>
           </div>
           <div class="main-post-content">
-            <p class="post-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ipsum provident id laborum! Dignissimos explicabo praesentium quis quasi fuga mollitia!</p>
-            <!-- <iframe class= "embedded-song" src="https://open.spotify.com/embed/track/18zQTt3ifDv6iLni2YuXMg?utm_source=generator" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> -->
+            <p class="post-message">{{ chirp.message }}</p>
+            <iframe class="embedded-song" src="https://open.spotify.com/embed/track/18zQTt3ifDv6iLni2YuXMg?utm_source=generator" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
           </div>
           <div class="bottom-row-container">
-            <p class="bottom-row-text spacer"><i class="fa-regular fa-comment icons"></i>12 Comments</p>
-            <p class="bottom-row-text"><i class="fa-regular fa-heart icons"></i>52 Likes</p>
+            <p class="bottom-row-text spacer"><i class="fa-regular fa-comment icons"></i>{{ chirp.comments.length }} comment</p>
+            <p class="bottom-row-text"><i class="fa-regular fa-heart icons"></i>{{ chirp.likes.length }} likes</p>
           </div>
         </div>
-
       </div>
       <!-- <div id="explore" v-if="explore"></div>
       <div id="profile" v-if="profile">profile information</div> -->
