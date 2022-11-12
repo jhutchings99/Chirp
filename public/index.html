@@ -16,64 +16,11 @@
     <div id="app">
       <div id="nav">
         <div id="logo-container">
-          <img src="images/logo.png" alt="Chirp Logo" id="logo">
-          <p id="logo-text">CHIRP</p>
-        </div>
-        <p class="nav-link"><i class="fa-solid fa-house icons"></i>HOME</p>
-        <p class="nav-link"><i class="fa-solid fa-compass icons"></i>EXPLORE</p>
-        <p class="nav-link"><i class="fa-solid fa-music icons"></i>PLAYLISTS</p>
-        <p class="nav-link"><i class="fa-solid fa-user icons"></i>PROFILE</p>
-        <p class="nav-link"><i class="fa-solid fa-right-from-bracket icons"></i>LOGOUT</p>
-      </div>
-
-      <div id="posts-container">
-        <div class="post">
-          <div class="top-row-container">
-            <p class="top-row-text spacer">Username</p>
-            <p class="top-row-text">12 hours ago</p>
-          </div>
-          <div class="main-post-content">
-            <p class="post-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ipsum provident id laborum! Dignissimos explicabo praesentium quis quasi fuga mollitia!</p>
-            <iframe class="embedded-song" src="https://open.spotify.com/embed/track/18zQTt3ifDv6iLni2YuXMg?utm_source=generator" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-          </div>
-          <div class="bottom-row-container">
-            <p class="bottom-row-text spacer"><i class="fa-regular fa-comment icons"></i>12 Comments</p>
-            <p class="bottom-row-text"><i class="fa-regular fa-heart icons"></i>52 Likes</p>
-          </div>
-        </div>
-
-        <!-- TEMP POSTS DELETE LATER -->
-        <div class="post">
-          <div class="top-row-container">
-            <p class="top-row-text spacer">Username</p>
-            <p class="top-row-text">12 hours ago</p>
-          </div>
-          <div class="main-post-content">
-            <p class="post-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ipsum provident id laborum! Dignissimos explicabo praesentium quis quasi fuga mollitia!</p>
-            <iframe class="embedded-song" src="https://open.spotify.com/embed/track/0IkcOWI1DIFM2L6kIukxr4?utm_source=generator" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>          </div>
-          <div class="bottom-row-container">
-            <p class="bottom-row-text spacer"><i class="fa-regular fa-comment icons"></i>12 Comments</p>
-            <p class="bottom-row-text"><i class="fa-regular fa-heart icons"></i>52 Likes</p>
-          </div>
-        </div>
-        <div class="post">
-          <div class="top-row-container">
-            <p class="top-row-text spacer">Username</p>
-            <p class="top-row-text">12 hours ago</p>
-          </div>
-          <div class="main-post-content">
-            <p class="post-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ipsum provident id laborum! Dignissimos explicabo praesentium quis quasi fuga mollitia!</p>
-            <iframe class="embedded-song" src="https://open.spotify.com/embed/track/39qtjJ454r2fgyXaenq8Wv?utm_source=generator" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>          </div>
-          <div class="bottom-row-container">
-            <p class="bottom-row-text spacer"><i class="fa-regular fa-comment icons"></i>12 Comments</p>
-            <p class="bottom-row-text"><i class="fa-regular fa-heart icons"></i>52 Likes</p>
-          </div>
-        </div>
-        <!-- END OF TEMP -->
-
-      </div>
-      <div id="explore" v-if="explore"></div>
-      <div id="profile" v-if="profile">profile information</div>
+          
+      <input v-model="trackSearch" @keypress.enter = "getSearch()">
+      <li v-for="item in trackResults">
+        {{item.external_urls.href.images[3]}}
+      </li>
       <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script>
     <div id="embed-iframe">
                 <script type="text/javascript">window.onSpotifyIframeApiReady = (IFrameAPI) => { 
@@ -87,8 +34,6 @@
                 </script>
 
     </div>
-      <input type="text" id="track" name="track">
-    <button>Enter</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>

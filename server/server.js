@@ -269,11 +269,7 @@ app.delete('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
     }
 });
 
-app.get('/search', async (req, res) => {
-    let q = this.query;
-    let type = ["track"];
 
-});
 
 module.exports = {
     app
