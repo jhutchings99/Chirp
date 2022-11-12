@@ -97,14 +97,15 @@
           </div>
           <h1>Register</h1>
           <div class="loginInputs">
-            <input type="text" placeholder=" First Name" />
-            <input type="text" placeholder=" Last Name" />
-            <input type="text" placeholder=" Username" />
-            <input type="text" placeholder=" Password" />
-            <input type="text" placeholder=" Re-Enter Password" />
+            <input type="text" placeholder=" First Name" v-model="registerFirstName"/>
+            <input type="text" placeholder=" Last Name" v-model="registerLastName"/>
+            <input type="text" placeholder=" Email" v-model="registerEmail"/>
+            <input type="text" placeholder=" Username" v-model="registerUsername"/>
+            <input type="password" placeholder=" Password" v-model="registerPassword"/>
+            <input type="password" placeholder=" Re-Enter Password" v-model="registerConfirmPassword"/>
           </div>
           <div class="loginButtons">
-            <button >Submit</button>
+            <button @click="createUser()">Submit</button>
             <button @click="page = 'login'">Login</button>
           </div>
         </div>

@@ -17,6 +17,12 @@ var app = new Vue({
     loggedIn: false,
     loginUsername: '',
     loginPassword: '',
+    registerUsername: '',
+    registerPassword: '',
+    registerConfirmPassword: '',
+    registerEmail: '',
+    registerFirstName: '',
+    registerLastName: '',
   },
   methods: {
     getChirps: async function () {
@@ -167,6 +173,37 @@ var app = new Vue({
           console.log("error GETTING /session", response.status, response);
       }
     },
+
+    createUser: async function () {
+      if (this.registerPassword != this.registerConfirmPassword) {
+        return;
+      }
+      let newUser = {
+        username: this.registerUsername,
+        password: this.registerPassword,
+        email: this.registerEmail,
+        firstName: this.registerFirstName,
+        lastName: this.registerLastName,
+      };
+
+      let response = await fetch(`${URL}/users`, {
+        method: 'POST',
+        body: JSON.stringify(newUser),
+        headers: {
+          'content-type': 'application/json',
+        },
+        credentials: 'include',
+      });
+      let data = await response.json();
+      console.log(response.status);
+      console.log(data);
+      if (response.status == 201) {
+        this.page = 'login';
+      } else {
+        console.log('Error creating user:', response.status);
+      }
+    },
+
   },
   created: function () {
     this.getChirps();
