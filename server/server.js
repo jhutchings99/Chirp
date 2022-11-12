@@ -55,10 +55,10 @@ app.get('/chirps', async (req, res) => {
 });
 
 app.post('/users/:_id/chirps', async (req, res) => {
-    if (!req.user) {
-        res.status(401).json({ message: "Unauthorized" });
-        return;
-    }
+    // if (!req.user) {
+    //     res.status(401).json({ message: "Unauthorized" });
+    //     return;
+    // }
     try {
         user = await User.findById(req.params._id);
         username = user.username;

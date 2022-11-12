@@ -9,6 +9,10 @@ var app = new Vue({
     home: true,
     chirps: [],
     page: 'login',
+    posting: false,
+    postMessage: '',
+    embeddedSong: '',
+    userId: '',
   },
   methods: {
     getChirps: async function () {
@@ -23,7 +27,20 @@ var app = new Vue({
           console.log("error GETTING /chirps", response.status, response);
       }
     },
-  
+
+    getLoggedInUser: async function () {
+      let response = await fetch(`${URL}/sessions`);
+
+      let body = await response.json();
+
+      if (response.status == 200) {
+          console.log("Successful user retrieval");
+          this.userId = body.id;
+      } else {
+          console.log("error GETTING /sessions", response.status, response);
+      }
+    },
+
     getComments: async function (commentId) {
       let response = await fetch(`${URL}/chirp/comment/${commentId}`, {
         method: 'GET',
@@ -35,34 +52,30 @@ var app = new Vue({
       console.log(data);
     },
 
-    getChirp: async function (postId) {
-      let response = await fetch(`${URL}/chirp/${postId}`, {
-        method: 'GET',
-        credentials: 'include',
-      });
-      let data = await response.json();
-      this.post = data;
-      console.log(response.status);
-      console.log(data);
-    },
+    createChirp: async function () {
+      let postBody = {
+        message: this.postMessage,
+        embeddedSong: this.embeddedSong,
+    }
 
-    createPost: async function (post) {
-      let response = await fetch(`${URL}/chirp`, {
-        method: 'POST',
-        body: JSON.stringify(post),
+    let response = await fetch(URL + "/users/:_id/chirps", {
+        method: "POST",
+        body: JSON.stringify(postBody),
         headers: {
-          'content-type': 'application/json',
+            "Content-Type" : "application/json"
         },
-        credentials: 'include',
-      });
-      let data = await response.json();
-      console.log(response.status);
-      console.log(data);
-      if (response.status == 201) {
-        this.getPosts();
-      } else {
-        console.log('Error creating post:', response.status);
-      }
+        credentials: "include"
+    });
+
+    if (response.status == 201) {
+        // created successfully
+        console.log("created station");
+        this.postBody = "";
+        this.embeddedSong = "";
+        this.getChirps();
+    } else {
+        console.log("Error posting chirp:", response.status);
+    }
     },
 
     createComment: async function (comment) {

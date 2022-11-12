@@ -42,6 +42,15 @@
           </div>
         </div>
       </div>
+      <p class="create-post" @click="posting='true'">+</p>
+      <div id="create-post-container" v-show="posting == 'true'">
+        <input type="text" placeholder="Message" class="post-input" v-model="postMessage">
+        <input type="text" placeholder="Spotify Embed Link" class="post-input" v-model="embeddedSong">
+        <div>
+          <button class="post-button" @click="createChirp(userId)">Post</button>
+          <button class="close-post-button" @click="posting='false'">x</button>
+        </div>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>
