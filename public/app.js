@@ -8,7 +8,8 @@ var app = new Vue({
     allChirps: [],
     home: true,
     chirps: [],
-    page: 'login',
+    loggedIn: false,
+    page: 'register',
   },
   methods: {
     getChirps: async function () {
