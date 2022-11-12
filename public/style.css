@@ -26,6 +26,7 @@ body {
 
 #logo {
   height: 150px;
+  cursor: pointer;
 }
 
 #logo-text {
@@ -34,12 +35,14 @@ body {
   letter-spacing: 10px;
   color: #084a83;
   padding-bottom: 20px;
+  cursor: pointer;
 }
 
 .nav-link {
   font-size: 2.5rem;
   text-align: left;
   margin: 5rem;
+  cursor: pointer;
 }
 
 .nav-link::after {
@@ -225,6 +228,7 @@ body {
 .bottom-row-text {
   font-size: 1.5rem;
   padding-bottom: 20px;
+  cursor: pointer;
 }
 
 .spacer {
@@ -327,6 +331,43 @@ body {
 
 .close-post-button:hover {
   box-shadow: 0px 0px 10px black;
+}
+
+#comments-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.comment {
+  height: 200px;
+  width: 90%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px black;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.comment-top-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.comment-top-row-text {
+  font-size: 1.3rem;
+}
+
+.comment-main-text {
+  font-size: 1.5rem;
+  padding: 20px;
 }
 
 @media only screen and (min-width: 1920px) {

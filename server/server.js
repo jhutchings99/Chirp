@@ -55,13 +55,13 @@ app.get('/chirps', async (req, res) => {
 });
 
 app.post('/users/:_id/chirps', async (req, res) => {
-    // if (!req.user) {
-    //     res.status(401).json({ message: "Unauthorized" });
-    //     return;
-    // }
+    if (!req.user) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
     try {
-        user = await User.findById(req.params._id);
-        username = user.username;
+        let user = await User.findById(req.params._id);
+        let username = user.username;
         let chirp = await Chirp.create({
             user_id: req.params._id,
             poster: username,
@@ -140,10 +140,10 @@ app.post('/users', async (req, res) => {
 });
 
 app.get('/users/:_id', async (req, res) => {
-    // if (!req.user) {
-    //     res.status(401).json({ message: "Unauthorized" });
-    //     return;
-    // }
+    if (!req.user) {
+        res.status(401).json({ message: "Unauthorized" });
+        return;
+    }
     const id = req.params._id;
     try {
         let user = await User.findById(id);
@@ -165,10 +165,14 @@ app.post('/users/:_id/chirps/:chirps_id/comments', async (req, res) => {
     }
 
     let chirp;
+    let user = await User.findById(req.params._id);
+    let username = user.username;
+    console.log(username)
 
     try {
         comment = await Comment.create({
             user_id: req.params._id,
+            poster: username,
             chirp_id: req.params.chirps_id,
             message: req.body.message,
             timeStamp: Date,

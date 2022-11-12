@@ -8,6 +8,7 @@ const CommentSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+    poster: { type: String, required: true },
     chirp_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chirp",

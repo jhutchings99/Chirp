@@ -61,14 +61,23 @@
             ></iframe>
           </div>
           <div class="bottom-row-container">
-            <p class="bottom-row-text spacer">
+            <p class="bottom-row-text spacer" @click="readingComments = !readingComments">
               <i class="fa-regular fa-comment icons"></i>{{
-              chirp.comments.length }} comment
+              chirp.comments.length }} comments
             </p>
-            <p class="bottom-row-text">
-              <i class="fa-regular fa-heart icons" @click="addingLikes(chirp._id)"></i>{{ chirp.likes.length }}
+            <p class="bottom-row-text" @click="addingLikes(chirp._id)">
+              <i class="fa-regular fa-heart icons" ></i>{{ chirp.likes.length }}
               likes
             </p>
+          </div>
+          <div id="comments-container" v-if="readingComments">
+            <div class="comment" v-for="comment in chirp.comments">
+              <div class="comment-top-row">
+                <p class="comment-top-row-text">{{ comment.poster }}</p>
+                <p class="comment-top-row-text">{{ comment.timestamp.split('T')[0]}}</p>
+              </div>
+              <p class="comment-main-text">{{ comment.message }}</p>
+            </div>
           </div>
         </div>
       </div>

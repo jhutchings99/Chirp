@@ -24,6 +24,7 @@ var app = new Vue({
     registerFirstName: '',
     registerLastName: '',
     currentUser: '',
+    readingComments: false,
   },
   methods: {
     getChirps: async function () {
