@@ -9,7 +9,7 @@ var app = new Vue({
     home: true,
     chirps: [],
     loggedIn: false,
-    page: 'register',
+    page: 'main',
   },
   methods: {
     getChirps: async function () {
