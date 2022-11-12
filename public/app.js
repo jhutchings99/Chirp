@@ -6,27 +6,23 @@ var app = new Vue({
     postList: [],
     trendingPosts: [],
     postComments: [],
-    post: {},
-    currentPage: 'login',
-    creatingPost: false,
+    allChirps: [],
+    home: true,
+    chirps: [],
+    page: 'login',
     loggedIn: false,
-    comments: false,
-    pages: ['home', 'explore', 'playlists', 'profile'],
   },
   methods: {
-    pageCookie: function (currentPage) {
-      document.cookie = 'currentPage =' + currentPage;
-    },
-    endSession: function () {},
-    getPosts: async function () {
-      let response = await fetch(`${URL}/chirp`, {
-        method: 'GET',
-        credentials: 'include',
-      });
-      let data = await response.json();
-      this.postList = data;
-      console.log(response.status);
-      console.log(data);
+    getChirps: async function () {
+      let response = await fetch(`${URL}/chirps`);
+      let body = await response.json();
+
+      if (response.status == 200) {
+        console.log('Successful chrips retrieval');
+        this.allChirps = body;
+      } else {
+        console.log('error GETTING /chirps', response.status, response);
+      }
     },
 
     getComments: async function (commentId) {
@@ -40,7 +36,7 @@ var app = new Vue({
       console.log(data);
     },
 
-    getPost: async function (postId) {
+    getChirp: async function (postId) {
       let response = await fetch(`${URL}/chirp/${postId}`, {
         method: 'GET',
         credentials: 'include',
@@ -88,5 +84,13 @@ var app = new Vue({
         console.log('Error creating post:', response.status);
       }
     },
+  },
+
+  pageCookie: function (currentPage) {
+    document.cookie = 'currentPage =' + currentPage;
+  },
+  endSession: function () {},
+  created: function () {
+    this.getChirps();
   },
 });

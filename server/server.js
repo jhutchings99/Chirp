@@ -7,11 +7,7 @@ app.use(cors());
 
 app.use(express.static('public'));
 
-<<<<<<< HEAD
 const { User, Chirp, Comment } = require('../persist/posts')
-=======
-const { User, Chirp } = require('../persist/posts');
->>>>>>> login
 
 const setUpAuth = require('./auth');
 const setUpSession = require('./session');
@@ -22,7 +18,6 @@ setUpAuth(app);
 const post = require('../persist/posts');
 
 app.get('/chirps/:id', async (req, res) => {
-<<<<<<< HEAD
     if (!req.user) {
         res.status(401).json({ message: "Unauthorized" });
         return;
@@ -41,10 +36,10 @@ app.get('/chirps/:id', async (req, res) => {
 });
 
 app.get('/chirps', async (req, res) => {
-    if (!req.user) {
-        res.status(401).json({ message: "Unauthorized" });
-        return;
-    }
+    // if (!req.user) {
+    //     res.status(401).json({ message: "Unauthorized" });
+    //     return;
+    // }
     let chirp;
     try {
         chirp = await Chirp.find();
@@ -65,8 +60,11 @@ app.post('/users/:_id/chirps', async (req, res) => {
         return;
     }
     try {
+        user = await User.findById(req.params._id);
+        username = user.username;
         let chirp = await Chirp.create({
             user_id: req.params._id,
+            poster: username,
             message: req.body.message,
             embeddedSong: req.body.embeddedSong,
             timeStamp: Date,
@@ -121,106 +119,6 @@ app.delete('/chirps/:id', async (req, res) => {
         console.log(err);
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     };
-=======
-  const id = req.params.id;
-  try {
-    chirp = await post.findById(id);
-    if (chirp == null) {
-      res.status(404).json({ message: 'No Chirp found' });
-      return;
-    }
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: 'Check your server code, somthing is wrong' });
-  }
-  res.status(200).json(chirp);
-});
-
-app.get('/chirps', async (req, res) => {
-  let chirp;
-  try {
-    chirp = await Chirp.find();
-    if (chirp == null) {
-      res.status(404).json({ message: 'No Chirp found' });
-      return;
-    }
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .json({ message: 'Check your server code, somthing is wrong' });
-  }
-  res.status(200).json(chirp);
-});
-
-app.post('/chirps', async (req, res) => {
-  let chirp;
-  try {
-    chirp = await post.create({
-      // chirpSchema
-      user_id: req.user.id,
-      message: req.body.message,
-      embeddedSong: req.body.embeddedSong,
-      timeStamp: Date,
-      likes: [],
-      comments: [],
-    });
-    res.status(201).json(chirp);
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .json({ message: 'Check your server code, something is wrong' });
-  }
-});
-
-app.put('/chirps/:id', async (req, res) => {
-  let chirp;
-  let id = req.params.id;
-  try {
-    chirp = await post.findByIdAndUpdate(
-      id,
-      {
-        // chirpSchema
-        user_id: req.user.id,
-        message: req.body.message,
-        embeddedSong: req.body.embeddedSong,
-        timeStamp: Date,
-        likes: [],
-        comments: [],
-      },
-      { returnDocument: 'after' }
-    );
-    if (chirp == null) {
-      res.status(404).json({ message: 'No Chirp found' });
-      return;
-    }
-    res.status(201).json(chirp);
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .json({ message: 'Check your server code, something is wrong' });
-  }
-});
-
-app.delete('/chirps/:id', async (req, res) => {
-  const id = req.params.id;
-  let chirp;
-  try {
-    chirp = await posts.findByIdAndDelete(id);
-    if (chirp == null) {
-      res.status(404).json({ message: 'No Chirp found' });
-    }
-    res.status(201).json(chirp);
-  } catch (err) {
-    console.log(err);
-    res
-      .status(500)
-      .json({ message: 'Check your server code, somthing is wrong' });
-  }
->>>>>>> login
 });
 
 app.post('/users', async (req, res) => {
@@ -239,6 +137,25 @@ app.post('/users', async (req, res) => {
       .status(500)
       .json({ message: 'Check your server code, somthing is wrong' });
   }
+});
+
+app.get('/users/:_id', async (req, res) => {
+    // if (!req.user) {
+    //     res.status(401).json({ message: "Unauthorized" });
+    //     return;
+    // }
+    const id = req.params._id;
+    try {
+        let user = await User.findById(id);
+        if (user == null) {
+            res.status(404).json({ message: "No User found" });
+            return;
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Check your server code, somthing is wrong" });
+    };
 });
 
 app.post('/users/:_id/chirps/:chirps_id/comments', async (req, res) => {

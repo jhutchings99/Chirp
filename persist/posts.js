@@ -43,6 +43,7 @@ const ChirpSchema = new mongoose.Schema({
         ref: "User",
         required: true,
     },
+    poster: { type: String, required: true },
     message: { type: String, required: true },
     embeddedSong: { type: String, required: true },
     timestamp: { type: Date, default: Date.now },

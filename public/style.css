@@ -98,6 +98,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 #login {
   background-image: url(images/pelicanBack.jpg);
@@ -220,7 +221,6 @@ body {
   background: #ffe8c8;
   border-radius: 50px;
 }
-<<<<<<< HEAD
 
 @media only screen and (min-width: 1920px) {
   .nav-link {
@@ -229,6 +229,3 @@ body {
     margin: 70px;
   }
 }
->>>>>>> origin/master
-=======
->>>>>>> login
