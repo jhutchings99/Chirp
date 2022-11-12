@@ -62,9 +62,10 @@
           </div>
           <div class="bottom-row-container">
             <p class="bottom-row-text spacer">
-              <i class="fa-regular fa-comment icons"></i>{{
-              chirp.comments.length }} comment
+              <i class="fa-regular fa-comment icons" @click="postComment = true"></i>{{
+chirp.comments.length }} comment
             </p>
+            <input v-if="postComment == true" v-model="commentInput" @keypress.enter="createComment(commentInput, chirp.userId, chirp._id)">
             <p class="bottom-row-text">
               <i class="fa-regular fa-heart icons"></i>{{ chirp.likes.length }}
               likes
