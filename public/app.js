@@ -7,7 +7,8 @@ var app = new Vue({
     postComments: [],
     allChirps: [],
     home: true,
-    temp: "",
+    chirps: [],
+    page: 'login',
   },
   methods: {
     getChirps: async function () {
@@ -22,22 +23,7 @@ var app = new Vue({
           console.log("error GETTING /chirps", response.status, response);
       }
     },
-    
-    getUserById: async function (id) {
-      let response = await fetch(`${URL}/users/${id}`);
-
-      let body = await response.json();
-
-      if (response.status == 200) {
-          console.log("Successful user retrieval");
-          console.log(body.username)
-          temp = body.username;
-      } else {
-          console.log("error GETTING /users/id", response.status, response);
-      }
-    },
-
-
+  
     getComments: async function (commentId) {
       let response = await fetch(`${URL}/chirp/comment/${commentId}`, {
         method: 'GET',
@@ -49,7 +35,7 @@ var app = new Vue({
       console.log(data);
     },
 
-    getPost: async function (postId) {
+    getChirp: async function (postId) {
       let response = await fetch(`${URL}/chirp/${postId}`, {
         method: 'GET',
         credentials: 'include',
