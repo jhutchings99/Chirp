@@ -97,7 +97,7 @@
         <input type="text" placeholder="Message" class="post-input" v-model="postMessage">
         <input type="text" placeholder="Spotify Embed Link" class="post-input" v-model="embeddedSong">
         <div>
-          <button class="post-button" @click="createChirp(userId)">Post</button>
+          <button class="post-button" @click="createChirp(currentUser)">Post</button>
           <button class="close-post-button" @click="posting='false'">x</button>
         </div>
       </div>

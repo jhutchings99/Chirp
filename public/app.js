@@ -17,6 +17,7 @@ var app = new Vue({
     loggedIn: false,
     loginUsername: '',
     loginPassword: '',
+    currentUser: '',
   },
   methods: {
     getChirps: async function () {
@@ -56,13 +57,13 @@ var app = new Vue({
       console.log(data);
     },
 
-    createChirp: async function () {
+    createChirp: async function (user) {
       let postBody = {
         message: this.postMessage,
         embeddedSong: this.embeddedSong,
     }
 
-    let response = await fetch(URL + "/users/:_id/chirps", {
+    let response = await fetch(URL + `/users/${user._id}/chirps`, {
         method: "POST",
         body: JSON.stringify(postBody),
         headers: {
@@ -73,7 +74,7 @@ var app = new Vue({
 
     if (response.status == 201) {
         // created successfully
-        console.log("created station");
+        console.log("created chirp");
         this.postBody = "";
         this.embeddedSong = "";
         this.getChirps();
@@ -116,32 +117,24 @@ var app = new Vue({
           },
           credentials: "include"
       });
-  
-      // parse the body
-      let body;
-      try {
-          body = response.json();
-          console.log(body);
-      } catch (error) {
-          console.log("Response body was not json")
-      }
-  
+      
       // check - was the login successfull
       if (response.status == 201) {
-          // successfull login
-          console.log("Welcome");
-  
-          // clear inputs
-          this.loginUsername = "";
-          this.loginPassword = "";
-  
-          // take the user to the home page
-          this.page = 'main';
-          this.loggedIn = true;
-  
+        let data = await response.json();
+        // successfull login
+        console.log("Welcome");
+        this.currentUser = data;
+        
+        // clear inputs
+        this.loginUsername = "";
+        this.loginPassword = "";
+
+        // take the user to the home page
+        this.page = 'main';
+        this.loggedIn = true;
       }
       else if (response.status == 400 || response.status == 401){
-          this.errorMessage = "Login Info was Incorrect.";
+        console.log("Invalid username or password");
       }
     },
 
@@ -155,8 +148,7 @@ var app = new Vue({
       if (response.status == 200) {
           // logged in
           let data = await response.json();
-          console.log(data)
-
+          this.currentUser = data;
           this.page = 'main';
           this.loggedIn = 'true';
       } else if (response.status == 401) {
@@ -172,12 +164,4 @@ var app = new Vue({
     this.getChirps();
     this.getSession();
   }
-
-  // pageCookie: function (currentPage) {
-  //   document.cookie = 'currentPage =' + currentPage;
-  // },
-  // endSession: function () {},
-  // created: function () {
-  //   this.getChirps();
-  // },
 });
