@@ -203,18 +203,17 @@ var app = new Vue({
         console.log('Error creating user:', response.status);
       }
     },
-
+    logoutUser: async function () {
+      let response = await fetch(`${URL}/sessions`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+      let data = await response.json();
+      window.location.reload();
+    }
   },
   created: function () {
     this.getChirps();
     this.getSession();
   }
-
-  // pageCookie: function (currentPage) {
-  //   document.cookie = 'currentPage =' + currentPage;
-  // },
-  // endSession: function () {},
-  // created: function () {
-  //   this.getChirps();
-  // },
 });
