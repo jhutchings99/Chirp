@@ -6,7 +6,7 @@ var app = new Vue({
     postList: [],
     postComments: [],
     chirps: [],
-    home: true,
+    page: 'login',
   },
   methods: {
     getChirps: async function () {
