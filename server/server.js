@@ -5,12 +5,12 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 const { User, Chirp, Comment } = require('../persist/posts')
 
-const setUpAuth = require("./auth");
-const setUpSession = require("./session");
+const setUpAuth = require('./auth');
+const setUpSession = require('./session');
 
 setUpSession(app);
 setUpAuth(app);
@@ -122,19 +122,21 @@ app.delete('/chirps/:id', async (req, res) => {
 });
 
 app.post('/users', async (req, res) => {
-    try {
-        let user = await User.create({
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
-        });
-        res.status(201).json(user);
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ message: "Check your server code, somthing is wrong" });
-    }
+  try {
+    let user = await User.create({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+    });
+    res.status(201).json(user);
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ message: 'Check your server code, somthing is wrong' });
+  }
 });
 
 app.get('/users/:_id', async (req, res) => {
@@ -292,5 +294,5 @@ app.delete('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
 });
 
 module.exports = {
-    app
-}
+  app,
+};

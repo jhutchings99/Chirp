@@ -5,28 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/44a9d6cfa6.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/44a9d6cfa6.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="icon" type="image/x-icon" href="images/logo.png" />
     <title>Chirp</title>
   </head>
   <body>
     <div id="app">
-      <div id="nav">
-        <div id="logo-container">
-          <img src="images/logo.png" alt="Chirp Logo" id="logo">
+      <div id="nav" v-if="loggedIn">
+        <div id="logo-container" @click="currentPage = 'home'">
+          <img src="images/logo.png" alt="Chirp Logo" id="logo" />
           <p id="logo-text">CHIRP</p>
         </div>
-        <p class="nav-link"><i class="fa-solid fa-house icons"></i>HOME</p>
-        <p class="nav-link"><i class="fa-solid fa-compass icons"></i>EXPLORE</p>
-        <p class="nav-link"><i class="fa-solid fa-music icons"></i>PLAYLISTS</p>
-        <p class="nav-link"><i class="fa-solid fa-user icons"></i>PROFILE</p>
-        <p class="nav-link"><i class="fa-solid fa-right-from-bracket icons"></i>LOGOUT</p>
+        <p class="nav-link" @click="currentPage = 'home'">
+          <i class="fa-solid fa-house icons"></i>HOME
+        </p>
+        <p class="nav-link" @click="currentPage = 'explore'">
+          <i class="fa-solid fa-compass icons"></i>EXPLORE
+        </p>
+        <p class="nav-link" @click="currentPage = 'playlists'">
+          <i class="fa-solid fa-music icons"></i>PLAYLISTS
+        </p>
+        <p class="nav-link">
+          <i class="fa-solid fa-user icons" @click="currentPage = 'profile'"></i
+          >PROFILE
+        </p>
+        <p class="nav-link" @click="endSession()">
+          <i class="fa-solid fa-right-from-bracket icons"></i>LOGOUT
+        </p>
       </div>
 
-      <div id="posts-container">
+      <div id="posts-container" v-if="loggedIn">
         <div v-for="chirp in allChirps" class="post">
           <div class="top-row-container">
             <p class="top-row-text spacer">{{ chirp.poster }}</p>
@@ -34,11 +51,44 @@
           </div>
           <div class="main-post-content">
             <p class="post-message">{{ chirp.message }}</p>
-            <iframe class="embedded-song" src="https://open.spotify.com/embed/track/18zQTt3ifDv6iLni2YuXMg?utm_source=generator" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe
+              class="embedded-song"
+              src="https://open.spotify.com/embed/track/18zQTt3ifDv6iLni2YuXMg?utm_source=generator"
+              frameborder="0"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
           </div>
           <div class="bottom-row-container">
-            <p class="bottom-row-text spacer"><i class="fa-regular fa-comment icons"></i>{{ chirp.comments.length }} comment</p>
-            <p class="bottom-row-text"><i class="fa-regular fa-heart icons"></i>{{ chirp.likes.length }} likes</p>
+            <p class="bottom-row-text spacer">
+              <i class="fa-regular fa-comment icons"></i>{{
+              chirp.comments.length }} comment
+            </p>
+            <p class="bottom-row-text">
+              <i class="fa-regular fa-heart icons"></i>{{ chirp.likes.length }}
+              likes
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="explore" v-if="explore"></div>
+      <div id="profile" v-if="profile">profile information</div>
+      <div id="login" v-if="currentPage == 'login'">
+        <div id="loginField">
+          <div id="chirpLogin">
+            <h1>CHIRP</h1>
+            <img src="images/logo.png" alt="Chirp Logo" id="loginLogo" />
+          </div>
+          <h1>Login</h1>
+          <div id="loginInputs">
+            <input type="text" placeholder=" Email" />
+            <input type="password" placeholder="  Password" />
+          </div>
+          <div id="loginButtons">
+            <button>Login</button>
+            <button>Forgot Password?</button>
+            <button>Register</button>
           </div>
         </div>
       </div>
