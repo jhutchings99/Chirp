@@ -149,6 +149,19 @@ var app = new Vue({
                 console.log("failed to remove like");
             }
         },      
+        removingPost: async function(chirpid){
+            console.log("removing.... stand by ....");
+            let response = await fetch(`http://localhost:8080/chirps/${chirpid}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+            if (response.status == 200){
+                console.log("deleted chirp!!");
+                this.getChirps();
+            }else{
+                console.log("failed to remove chirp");
+            }
+        },      
 
         loginUser: async function () {
             // attempt to login

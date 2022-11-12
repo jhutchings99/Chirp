@@ -38,6 +38,7 @@
           <div class="top-row-container">
             <p class="top-row-text spacer">{{ chirp.poster }}</p>
             <p class="top-row-text">{{ chirp.timestamp.split('T')[0] }}</p>
+            <p class="delete-comment-button" v-if="currentUser.id=== chirp.userid" @click="removePost(chirp._id)">x</p>
           </div>
           <div class="main-post-content">
             <p class="post-message">{{ chirp.message }}</p>
