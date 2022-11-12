@@ -86,32 +86,14 @@ var app = new Vue({
             if (response.status == 201 || response.status == 200) {
                 // created successfully
                 console.log("created station");
-                this.postBody = "";
+                this.postMessage = "";
                 this.embeddedSong = "";
+                this.posting = false;
                 this.getChirps();
             } else {
                 console.log("Error posting chirp:", response.status);
             }
         },
-
-        // createComment: async function (comment) {
-        //     let response = await fetch(`${URL}/comments`, {
-        //         method: 'POST',
-        //         body: JSON.stringify(comment),
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         credentials: 'include'
-        //     });
-        //     let data = await response.json();
-        //     console.log(response.status);
-        //     console.log(data);
-        //     if (response.status == 201) {
-        //         this.getComments();
-        //     } else {
-        //         console.log('Error creating post:', response.status);
-        //     }
-        // },
 
         addingLikes: async function (chirpid) {
             let userid = await this.currentUser.id;
