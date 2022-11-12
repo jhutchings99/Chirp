@@ -226,6 +226,7 @@ app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
         likes = chirp.likes;
         for (let i = 0; i < likes.length; i++) {
             if (likes[i]._id.equals(user._id)) {
+                console.log("user has chirp", err);
                 res.status(500).json({ message: "User already liked this chirp" });
                 return;
             }
@@ -239,6 +240,7 @@ app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
                 message: `get request failed to get a user`,
                 error: err,
             });
+            console.log("user has chirp1", err);
             return;
         }
         if (!chirp) {
@@ -246,10 +248,12 @@ app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
                 message: `get request failed to get a chirp`,
                 error: err,
             });
+            console.log("user has chirp12", err);
             return;
         }
     res.status(200).json(chirp);
     } catch (err) {
+        console.log("user has chirp3", err);
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     }
 });
@@ -274,6 +278,7 @@ app.delete('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
                         message: `get request failed to get a user`,
                         error: err,
                     });
+                        console.log('get request failed user', err);
                     return;
                 }
                 if (!chirp) {
@@ -281,6 +286,7 @@ app.delete('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
                         message: `get request failed to get a chirp`,
                         error: err,
                     });
+                    console.log('get request failed chirp', err);
                     return;
                 }
                 res.status(200).json(chirp);
@@ -288,8 +294,10 @@ app.delete('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
             }
         }
         res.status(500).json({ message: "User has not liked this chirp" });
+        console.log('user has not lked chirp');
     } catch (err) {
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
+        console.log('server is broken', err);
     }
 });
 

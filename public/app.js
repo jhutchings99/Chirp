@@ -104,6 +104,8 @@ var app = new Vue({
 
     addingLikes: async function(chirpid){
         let userid = this.currentUser.id;
+        console.log(chirpid);
+        console.log(this.currentUser.id);
         let response = await fetch(`http://localhost:8080/users/${userid}/chirps/${chirpid}/likes`,{
             method: "POST",
             headers: {
@@ -111,9 +113,9 @@ var app = new Vue({
           },
               credentials: "include"
         });
-        if(response.status == 201){
+        if(response.status == 200){
             console.log("like added");
-            getChirps();
+            this.getChirps();
         }
         else{
             console.log("could not add like");
