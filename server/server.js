@@ -230,7 +230,7 @@ app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
         likes = chirp.likes;
         for (let i = 0; i < likes.length; i++) {
             if (likes[i]._id.equals(user._id)) {
-                res.status(500).json({ message: "User already liked this chirp" });
+                res.status(200).json({ message: "User already liked this chirp" });
                 return;
             }
         }
@@ -254,7 +254,7 @@ app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
             console.log("user has chirp12", err);
             return;
         }
-    res.status(200).json(chirp);
+    res.status(201).json(chirp);
     } catch (err) {
         console.log("user has chirp3", err);
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
