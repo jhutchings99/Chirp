@@ -87,13 +87,19 @@
       <div id="profile" v-if="profile">profile information</div>
       <div id="login" v-if="currentPage == 'login'">
         <div id="loginField">
+          <div id="chirpLogin">
+            <h1>CHIRP</h1>
+            <img src="images/logo.png" alt="Chirp Logo" id="loginLogo">
+          </div>
           <h1>Login</h1>
-          
+          <div id="loginInputs">
           <input type="text" placeholder=" Email">
           <input type="password" placeholder="  Password">
+          </div>
           <div id="loginButtons">
             <button>Login</button>
             <button>Forgot Password?</button>
+            <button>Register</button>
           </div>
         </div>
         
