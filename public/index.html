@@ -70,6 +70,10 @@
               likes
             </p>
           </div>
+          <div id="new-comment-container" v-if="readingComments">
+            <input type="text" placeholder="Enter a comment" class="comment-input" v-model="newComment">
+            <button class="comment-button" @click="addCommentToChirp(chirp._id)">Comment</button>
+          </div>
           <div id="comments-container" v-if="readingComments">
             <div class="comment" v-for="comment in chirp.comments">
               <div class="comment-top-row">

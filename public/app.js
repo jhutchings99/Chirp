@@ -25,6 +25,7 @@ var app = new Vue({
     registerLastName: '',
     currentUser: '',
     readingComments: false,
+    newComment: '',
   },
     methods: {
         getChirps: async function () {
@@ -93,24 +94,24 @@ var app = new Vue({
             }
         },
 
-        createComment: async function (comment) {
-            let response = await fetch(`${URL}/comments`, {
-                method: 'POST',
-                body: JSON.stringify(comment),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include'
-            });
-            let data = await response.json();
-            console.log(response.status);
-            console.log(data);
-            if (response.status == 201) {
-                this.getComments();
-            } else {
-                console.log('Error creating post:', response.status);
-            }
-        },
+        // createComment: async function (comment) {
+        //     let response = await fetch(`${URL}/comments`, {
+        //         method: 'POST',
+        //         body: JSON.stringify(comment),
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         credentials: 'include'
+        //     });
+        //     let data = await response.json();
+        //     console.log(response.status);
+        //     console.log(data);
+        //     if (response.status == 201) {
+        //         this.getComments();
+        //     } else {
+        //         console.log('Error creating post:', response.status);
+        //     }
+        // },
 
         addingLikes: async function (chirpid) {
             let userid = await this.currentUser.id;
@@ -163,6 +164,7 @@ var app = new Vue({
                 // take the user to the home page
                 this.page = 'main';
                 this.loggedIn = true;
+                window.location.reload();
 
             }
             else if (response.status == 400 || response.status == 401) {
@@ -229,7 +231,26 @@ var app = new Vue({
             });
             let data = await response.json();
             window.location.reload();
-        }
+        },
+        addCommentToChirp: async function (chirpid) {
+          let userid = await this.currentUser.id;
+          console.log(chirpid);
+          console.log(this.currentUser.id);
+          let response = await fetch(`http://localhost:8080/users/${userid}/chirps/${chirpid}/comments`, {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              credentials: "include"
+          });
+          if (response.status == 200) {
+              console.log("comment added");
+              this.getChirps();
+          }
+          else {
+              console.log("could not add comment");
+          }
+        },
     },
     created: function () {
         this.getChirps();
