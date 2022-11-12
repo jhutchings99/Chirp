@@ -230,7 +230,6 @@ app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
         likes = chirp.likes;
         for (let i = 0; i < likes.length; i++) {
             if (likes[i]._id.equals(user._id)) {
-                console.log("user has chirp", err);
                 res.status(500).json({ message: "User already liked this chirp" });
                 return;
             }
