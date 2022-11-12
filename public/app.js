@@ -64,21 +64,24 @@ var app = new Vue({
     },
 
     createChirp: async function () {
-      let postBody = {
-        message: this.postMessage,
-        embeddedSong: this.embeddedSong,
-    }
-
-    let response = await fetch(URL + "/users/:_id/chirps", {
-        method: "POST",
-        body: JSON.stringify(postBody),
-        headers: {
-            "Content-Type" : "application/json"
-        },
-        credentials: "include"
+        let postBody = {
+            message: this.postMessage,
+            embeddedSong: this.embeddedSong
+        };
+        let userid = await this.currentUser.id; 
+        console.log("userID:",userid);
+        console.log("postBODY:",postBody);
+        console.log("currentUSER:",this.currentUser);
+        let response = await fetch( `${URL}/users/${userid}/chirps`, {
+            method: "POST",
+            body: JSON.stringify(postBody),
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            credentials: "include"
     });
 
-    if (response.status == 201) {
+    if (response.status == 201 || response.status == 200) {
         // created successfully
         console.log("created station");
         this.postBody = "";
@@ -94,9 +97,9 @@ var app = new Vue({
         method: 'POST',
         body: JSON.stringify(comment),
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
         },
-        credentials: 'include',
+        credentials: 'include'
       });
       let data = await response.json();
       console.log(response.status);
@@ -109,7 +112,7 @@ var app = new Vue({
     },
 
     addingLikes: async function(chirpid){
-        let userid = this.currentUser.id;
+        let userid = await this.currentUser.id;
         console.log(chirpid);
         console.log(this.currentUser.id);
         let response = await fetch(`http://localhost:8080/users/${userid}/chirps/${chirpid}/likes`,{
