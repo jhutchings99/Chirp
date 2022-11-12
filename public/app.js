@@ -15,6 +15,8 @@ var app = new Vue({
     embeddedSong: '',
     userId: '',
     loggedIn: false,
+    loginUsername: '',
+    loginPassword: '',
   },
   methods: {
     getChirps: async function () {
@@ -98,13 +100,84 @@ var app = new Vue({
         console.log('Error creating post:', response.status);
       }
     },
-  },
 
-  pageCookie: function (currentPage) {
-    document.cookie = 'currentPage =' + currentPage;
+    loginUser: async function () {
+      // attempt to login
+      let loginCredentials = {
+          username: this.loginUsername,
+          password: this.loginPassword
+      };
+  
+      let response = await fetch('http://localhost:8080/sessions', {
+          method: "POST",
+          body: JSON.stringify(loginCredentials),
+          headers: {
+              "Content-Type": "application/json"
+          },
+          credentials: "include"
+      });
+  
+      // parse the body
+      let body;
+      try {
+          body = response.json();
+          console.log(body);
+      } catch (error) {
+          console.log("Response body was not json")
+      }
+  
+      // check - was the login successfull
+      if (response.status == 201) {
+          // successfull login
+          console.log("Welcome");
+  
+          // clear inputs
+          this.loginUsername = "";
+          this.loginPassword = "";
+  
+          // take the user to the home page
+          this.page = 'main';
+          this.loggedIn = true;
+  
+      }
+      else if (response.status == 400 || response.status == 401){
+          this.errorMessage = "Login Info was Incorrect.";
+      }
+    },
+
+    getSession: async function () {
+      let response = await fetch(`${URL}/sessions`, {
+          method: "GET",
+          credentials: "include"
+      });
+
+      // Check if logged in
+      if (response.status == 200) {
+          // logged in
+          let data = await response.json();
+          console.log(data)
+
+          this.page = 'main';
+          this.loggedIn = 'true';
+      } else if (response.status == 401) {
+          // not logged in
+          let data = await response.json();
+          this.loggedIn = false;
+      } else {
+          console.log("error GETTING /session", response.status, response);
+      }
+    },
   },
-  endSession: function () {},
   created: function () {
     this.getChirps();
-  },
+    this.getSession();
+  }
+
+  // pageCookie: function (currentPage) {
+  //   document.cookie = 'currentPage =' + currentPage;
+  // },
+  // endSession: function () {},
+  // created: function () {
+  //   this.getChirps();
+  // },
 });

@@ -82,11 +82,11 @@
           </div>
           <h1>Login</h1>
           <div id="loginInputs">
-            <input type="text" placeholder=" Email" />
-            <input type="password" placeholder="  Password" />
+            <input type="text" placeholder=" Email"  v-model="loginUsername" />
+            <input type="password" placeholder="Password" v-model="loginPassword" />
           </div>
           <div id="loginButtons">
-            <button>Login</button>
+            <button @click="loginUser()">Login</button>
             <button>Forgot Password?</button>
             <button>Register</button>
           </div>
