@@ -21,21 +21,21 @@
   <body>
     <div id="app">
       <div id="nav" v-if="loggedIn">
-        <div id="logo-container" @click="currentPage = 'home'">
+        <div id="logo-container" @click="page = 'home'">
           <img src="images/logo.png" alt="Chirp Logo" id="logo" />
           <p id="logo-text">CHIRP</p>
         </div>
-        <p class="nav-link" @click="currentPage = 'home'">
+        <p class="nav-link" @click="page = 'home'">
           <i class="fa-solid fa-house icons"></i>HOME
         </p>
-        <p class="nav-link" @click="currentPage = 'explore'">
+        <p class="nav-link" @click="page = 'explore'">
           <i class="fa-solid fa-compass icons"></i>EXPLORE
         </p>
-        <p class="nav-link" @click="currentPage = 'playlists'">
+        <p class="nav-link" @click="page = 'playlists'">
           <i class="fa-solid fa-music icons"></i>PLAYLISTS
         </p>
         <p class="nav-link">
-          <i class="fa-solid fa-user icons" @click="currentPage = 'profile'"></i
+          <i class="fa-solid fa-user icons" @click="page = 'profile'"></i
           >PROFILE
         </p>
         <p class="nav-link" @click="logoutUser()">
@@ -82,6 +82,13 @@
           <div class="loginInputs">
             <input type="text" placeholder=" Email"  v-model="loginUsername" />
             <input type="password" placeholder="Password" v-model="loginPassword" />
+          <div id="loginInputs">
+            <input type="text" placeholder=" Email" v-model="loginUsername" />
+            <input
+              type="password"
+              placeholder="Password"
+              v-model="loginPassword"
+            />
           </div>
           <div class="loginButtons">
             <button @click="loginUser()">Login</button>
@@ -112,8 +119,18 @@
       </div>
       <p class="create-post" @click="posting='true'" v-if="page === 'main'">+</p>
       <div id="create-post-container" v-show="posting == 'true'">
-        <input type="text" placeholder="Message" class="post-input" v-model="postMessage">
-        <input type="text" placeholder="Spotify Embed Link" class="post-input" v-model="embeddedSong">
+        <input
+          type="text"
+          placeholder="Message"
+          class="post-input"
+          v-model="postMessage"
+        />
+        <input
+          type="text"
+          placeholder="Spotify Embed Link"
+          class="post-input"
+          v-model="embeddedSong"
+        />
         <div>
           <button class="post-button" @click="createChirp(userId)">Post</button>
           <button class="close-post-button" @click="posting='false'">x</button>
