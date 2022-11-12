@@ -136,7 +136,7 @@ app.post('/users', async (req, res) => {
 
 app.post('/users/:_id/chirps/:chirps_id/comments', async (req, res) => {
     if (!req.user) {
-        res.status(401).json({message: "Unauthorized"});
+        res.status(401).json({ message: "Unauthorized" });
         return;
     }
 
@@ -159,7 +159,7 @@ app.post('/users/:_id/chirps/:chirps_id/comments', async (req, res) => {
             });
             return;
         }
-    res.status(200).json(chirp);
+        res.status(200).json(chirp);
     } catch (err) {
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     }
@@ -167,7 +167,7 @@ app.post('/users/:_id/chirps/:chirps_id/comments', async (req, res) => {
 
 app.delete('/users/:_id/chirps/:chirps_id/comments/:_id', async (req, res) => {
     if (!req.user) {
-        res.status(401).json({message: "Unauthorized"});
+        res.status(401).json({ message: "Unauthorized" });
         return;
     }
 
@@ -184,7 +184,7 @@ app.delete('/users/:_id/chirps/:chirps_id/comments/:_id', async (req, res) => {
             });
             return;
         }
-    res.status(200).json(chirp);
+        res.status(200).json(chirp);
     } catch (err) {
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     }
@@ -192,7 +192,7 @@ app.delete('/users/:_id/chirps/:chirps_id/comments/:_id', async (req, res) => {
 
 app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
     if (!req.user) {
-        res.status(401).json({message: "Unauthorized"});
+        res.status(401).json({ message: "Unauthorized" });
         return;
     }
 
@@ -224,7 +224,7 @@ app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
             });
             return;
         }
-    res.status(200).json(chirp);
+        res.status(200).json(chirp);
     } catch (err) {
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     }
@@ -232,7 +232,7 @@ app.post('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
 
 app.delete('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
     if (!req.user) {
-        res.status(401).json({message: "Unauthorized"});
+        res.status(401).json({ message: "Unauthorized" });
         return;
     }
 
@@ -267,6 +267,12 @@ app.delete('/users/:_id/chirps/:chirps_id/likes', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: "Check your server code, somthing is wrong" });
     }
+});
+
+app.get('/search', async (req, res) => {
+    let q = this.query;
+    let type = ["track"];
+
 });
 
 module.exports = {

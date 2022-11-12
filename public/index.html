@@ -74,8 +74,25 @@
       </div>
       <div id="explore" v-if="explore"></div>
       <div id="profile" v-if="profile">profile information</div>
+      <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script>
+    <div id="embed-iframe">
+                <script type="text/javascript">window.onSpotifyIframeApiReady = (IFrameAPI) => { 
+                    let element = document.getElementById('embed-iframe');
+                    let options = {
+                        uri: 'spotify:episode:7makk4oTQel546B0PZlDM5'
+                    };
+                    let callback = (EmbedController) => {};
+                        IFrameAPI.createController(element, options, callback);
+                    };
+                </script>
+
+    </div>
+      <input type="text" id="track" name="track">
+    <button>Enter</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>
+    
+    
   </body>
 </html>
