@@ -17,6 +17,7 @@ var app = new Vue({
     loggedIn: false,
     loginUsername: '',
     loginPassword: '',
+    currentUser: '',
   },
   methods: {
     getChirps: async function () {
@@ -101,6 +102,24 @@ var app = new Vue({
       }
     },
 
+    addingLikes: async function(chirpid){
+        let userid = this.currentUser.id;
+        let response = await fetch(`http://localhost:8080/users/${userid}/chirps/${chirpid}/likes`,{
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+          },
+              credentials: "include"
+        });
+        if(response.status == 201){
+            console.log("like added");
+            getChirps();
+        }
+        else{
+            console.log("could not add like");
+        }
+    },
+
     loginUser: async function () {
       // attempt to login
       let loginCredentials = {
@@ -118,14 +137,6 @@ var app = new Vue({
       });
   
       // parse the body
-      let body;
-      try {
-          body = response.json();
-          console.log(body);
-      } catch (error) {
-          console.log("Response body was not json")
-      }
-  
       // check - was the login successfull
       if (response.status == 201) {
           // successfull login
@@ -134,6 +145,8 @@ var app = new Vue({
           // clear inputs
           this.loginUsername = "";
           this.loginPassword = "";
+          let data = response.json();
+          this.currentUser = data;
   
           // take the user to the home page
           this.page = 'main';
@@ -156,7 +169,7 @@ var app = new Vue({
           // logged in
           let data = await response.json();
           console.log(data)
-
+          this.currentUser = data;
           this.page = 'main';
           this.loggedIn = 'true';
       } else if (response.status == 401) {
