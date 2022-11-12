@@ -123,14 +123,31 @@ var app = new Vue({
                 },
                 credentials: "include"
             });
-            if (response.status == 200) {
+            if (response.status == 201) {
                 console.log("like added");
                 this.getChirps();
+            }
+            else if (response.status == 200){
+                console.log("unlike pending....");
+                this.removingLikes(chirpid,userid);
             }
             else {
                 console.log("could not add like");
             }
         },
+        removingLikes: async function(chirpid,userid){
+            console.log("unliking.... stand by ....");
+            let response = await fetch(`http://localhost:8080/users/${userid}/chirps/${chirpid}/likes`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+            if (response.status == 200){
+                console.log("deleted like!!!");
+                this.getChirps();
+            }else{
+                console.log("failed to remove like");
+            }
+        },      
 
         loginUser: async function () {
             // attempt to login
