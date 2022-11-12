@@ -253,15 +253,20 @@ var app = new Vue({
           let userid = await this.currentUser.id;
           console.log(chirpid);
           console.log(this.currentUser.id);
+          let newComment = {
+            message: this.newComment,
+          }
           let response = await fetch(`http://localhost:8080/users/${userid}/chirps/${chirpid}/comments`, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json"
               },
+              body: JSON.stringify(newComment),
               credentials: "include"
           });
           if (response.status == 200) {
               console.log("comment added");
+              this.newComment = "";
               this.getChirps();
           }
           else {
