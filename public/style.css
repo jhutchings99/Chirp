@@ -114,7 +114,22 @@ body {
   font-size: 1.5rem;
   color: #025484;
 }
-#loginField {
+#register { 
+ background-image: url(images/pelicanBack.jpg);
+  background-size: cover;
+
+  /* background-color: white; */
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #025484;
+}
+
+.loginField {
   align-items: center;
   background-color: rgba(245, 245, 245, 0.718);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -131,13 +146,13 @@ body {
   height: 10%;
   
 } */
-#loginButtons {
+.loginButtons {
   width: 70%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-#loginInputs {
+.loginInputs {
   width: 100%;
   height: 25%;
   display: flex;
@@ -145,13 +160,13 @@ body {
   align-items: center;
   justify-content: center;
 }
-#loginInputs input {
+.loginInputs input {
   width: 70%;
   height: 100%;
   margin-bottom: 5px;
   font-size: 1.5rem;
 }
-#loginInputs input::placeholder {
+.loginInputs input::placeholder {
   font-size: 1.5rem;
   padding-left: 0.5rem;
 }
@@ -166,11 +181,11 @@ body {
   align-items: center;
   justify-content: center;
 }
-#loginLogo {
+.loginLogo {
   height: 100px;
   margin-top: 20px;
 }
-#loginButtons button {
+.loginButtons button {
   display: inline-block;
   padding: 1em 1.2em;
   margin: 0 0.3em 0.3em 0;
@@ -186,7 +201,7 @@ body {
   text-align: center;
   transition: all 0.15s;
 }
-#loginButtons button:hover {
+.loginButtons button:hover {
   background-color: #0da5fd;
 }
 

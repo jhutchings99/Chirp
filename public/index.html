@@ -75,23 +75,39 @@
       <div id="explore" v-if="explore"></div>
       <div id="profile" v-if="profile">profile information</div>
       <div id="login" v-if="page == 'login'">
-        <div id="loginField">
+        <div class="loginField">
           <div id="chirpLogin">
             <h1>CHIRP</h1>
-            <img src="images/logo.png" alt="Chirp Logo" id="loginLogo" />
+            <img src="images/logo.png" alt="Chirp Logo" class="loginLogo" />
           </div>
           <h1>Login</h1>
-          <div id="loginInputs">
+          <div class="loginInputs">
             <input type="text" placeholder=" Email" />
             <input type="password" placeholder="  Password" />
           </div>
-          <div id="loginButtons">
+          <div class="loginButtons">
             <button>Login</button>
             <button>Forgot Password?</button>
-            <button>Register</button>
+            <button @click="page = 'register'">Register</button>
           </div>
         </div>
       </div>
+      <div id="register" v-if="page == 'register'">
+        <div class="loginField">
+          <h1>Create an Account</h1>
+          <img src="images/logo.png" alt="Chirp Logo" class="loginLogo" />
+          <div class="loginInputs">
+              <input type="text" placeholder=" First Name" />
+              <input type="text" placeholder=" Last Name" />
+              <input type="text" placeholder=" Username" />
+              <input type="text" placeholder=" Password" />
+              <input type="text" placeholder=" Re-Enter Password" />
+          </div>
+          <div class="loginButtons">
+              <button>Submit</button>
+              <button>Login</button>
+          </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="app.js"></script>
