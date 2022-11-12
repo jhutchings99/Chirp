@@ -69,6 +69,7 @@
               <div class="comment-top-row">
                 <p class="comment-top-row-text">{{ comment.poster }}</p>
                 <p class="comment-top-row-text">{{ comment.timestamp.split('T')[0]}}</p>
+                <p class="delete-comment-button" v-if="currentUser.id === comment.user_id" @click="deleteCommentFromChirp(chirp._id, comment._id)">x</p>
               </div>
               <p class="comment-main-text">{{ comment.message }}</p>
             </div>

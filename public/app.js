@@ -273,6 +273,22 @@ var app = new Vue({
               console.log("could not add comment");
           }
         },
+        deleteCommentFromChirp: async function (chirpid, commentid) {
+          let userid = await this.currentUser.id;
+          console.log(chirpid);
+          console.log(this.currentUser.id);
+          let response = await fetch(`http://localhost:8080/users/${userid}/chirps/${chirpid}/comments/${commentid}`, {
+              method: "DELETE",
+              credentials: "include"
+          });
+          if (response.status == 200) {
+              console.log("comment deleted");
+              this.getChirps();
+          }
+          else {
+              console.log("could not delete comment");
+          }
+        }
     },
     created: function () {
         this.getChirps();

@@ -403,6 +403,18 @@ body {
   margin: 10px;
 }
 
+.delete-comment-button {
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  border: none;
+  font-size: 2rem;
+  background-color: #ff073c;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 1920px) {
   .nav-link {
     font-size: 1.5rem;
