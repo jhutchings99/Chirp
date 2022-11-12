@@ -155,7 +155,7 @@ var app = new Vue({
                 method: "DELETE",
                 credentials: "include"
             });
-            if (response.status == 200){
+            if (response.status == 201){
                 console.log("deleted chirp!!");
                 this.getChirps();
             }else{
